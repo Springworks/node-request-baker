@@ -1,0 +1,50 @@
+{
+  "name": "node-swagger-example-requests",
+  "version": "0.0.0",
+  "description": "",
+  "files": [
+    "build"
+  ],
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "test": "NODE_ENV=test istanbul cover _mocha",
+    "build": "rm -rf build && babel src --out-dir build --copy-files",
+    "prepublish": "yarn run build",
+    "test-no-cov": "NODE_ENV=test mocha",
+    "test-acceptance": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/acceptance/'",
+    "test-component": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/component/'",
+    "test-unit": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/unit/'",
+    "lint": "eslint --cache ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Springworks/m2h-node-swagger-example-requests"
+  },
+  "bugs": "https://github.com/Springworks/m2h-node-swagger-example-requests/issues",
+  "homepage": "https://github.com/Springworks/m2h-node-swagger-example-requests#readme",
+  "author": "Springworks",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@springworks/test-harness": "^1.5.6",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.4.1",
+    "eslint-config-springworks": "^7.0.11",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-should-promised": "^2.0.0",
+    "eslint-plugin-springworks": "^2.1.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "swagger-md": "^2.0.1",
+    "swagger-parser": "^3.4.2",
+    "swagger-tools": "^0.10.1"
+  }
+}

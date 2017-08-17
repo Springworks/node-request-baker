@@ -1,0 +1,10 @@
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.log
+
+coverage
+node_modules
+.idea
+.eslintcache
