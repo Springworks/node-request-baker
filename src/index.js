@@ -85,11 +85,11 @@ function constructRequest(path, method, operation_object, generate) {
 export function constructRequests(swagger_spec, generator = defaultGenerator) {
   return SwaggerParser.validate(swagger_spec)
       .then(validated_spec => SwaggerParser.dereference(validated_spec))
-      .then(api => {
-        const paths = Object.keys(swagger_spec.paths);
+      .then(resolved_spec => {
+        const paths = Object.keys(resolved_spec.paths);
         const requests = [];
         paths.forEach(path => {
-          const path_object = swagger_spec.paths[path];
+          const path_object = resolved_spec.paths[path];
           const operation_object_keys = Object.keys(path_object);
           operation_object_keys.forEach(operation_object_key => {
             const operation_object = path_object[operation_object_key];
