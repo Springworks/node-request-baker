@@ -55,8 +55,9 @@ function constructRequest(path, method, operation_object, generate) {
 
   const query_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'query') : [];
 
+  const qs = {};
   query_params.forEach((query_param, idx) => {
-    new_path += `${idx === 0 ? '?' : '&'}${query_param.name}=${generate(query_param)}`;
+    qs[query_param.name] = generate(query_param);
   });
 
   const body_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'body') : [];
@@ -77,6 +78,7 @@ function constructRequest(path, method, operation_object, generate) {
     method,
     body,
     headers,
+    qs,
   };
 }
 
