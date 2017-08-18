@@ -1,11 +1,11 @@
 {
-  "name": "node-swagger-example-requests",
-  "version": "0.0.0",
-  "description": "",
+  "name": "@springworks/swagger-example-requests",
+  "version": "0.0.1",
+  "description": "Generates example request parameters from a Swagger specification",
   "files": [
     "build"
   ],
-  "main": "server.js",
+  "main": "build/index.js",
   "private": true,
   "scripts": {
     "test": "NODE_ENV=test istanbul cover _mocha",
