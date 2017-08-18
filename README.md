@@ -1,10 +1,7 @@
-# m2h-node-swagger-example-requests
+# node-swagger-example-requests
+Generates example request parameters from a Swagger specification
 
-
-## API
-See separate [API.md](API.md).
-
-## Development
-1. Clone the repository
-2. Run `git-crypt` with the correct key
-3. Run `yarn install`
+##Usage 
+```
+import constructRequests from '@springworks/swagger-example-requests'
+const requests_examples = constructRequests(swagger_spec);
