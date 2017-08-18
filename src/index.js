@@ -20,6 +20,9 @@ const params_map = {
     float: 0.0,
     double: 0.0,
   },
+  boolean: {
+    default: true,
+  },
 };
 
 function defaultGenerator(path_param) {
@@ -42,6 +45,9 @@ function defaultGenerator(path_param) {
 
   if (path_param.enum && path_param.enum.length > 0) {
     return path_param.enum[0];
+  }
+  if (!params_map[path_param.type]) {
+    throw new Error(`Unsupported type: ${path_param.type}`);
   }
   return params_map[path_param.type][path_param.format ? path_param.format : 'default'];
 }
@@ -82,20 +88,18 @@ function constructRequest(path, method, operation_object, generate) {
   };
 }
 
-export function constructRequests(swagger_spec, generator = defaultGenerator) {
-  return SwaggerParser.validate(swagger_spec)
-      .then(validated_spec => SwaggerParser.dereference(validated_spec))
-      .then(api => {
-        const paths = Object.keys(swagger_spec.paths);
-        const requests = [];
-        paths.forEach(path => {
-          const path_object = swagger_spec.paths[path];
-          const operation_object_keys = Object.keys(path_object);
-          operation_object_keys.forEach(operation_object_key => {
-            const operation_object = path_object[operation_object_key];
-            requests.push(constructRequest(path, operation_object_key, operation_object, generator));
-          });
-        });
-        return { requests, generator };
-      });
+export async function constructRequests(swagger_spec, generator = defaultGenerator) {
+  const validated_spec = await SwaggerParser.validate(swagger_spec);
+  const resolved_spec = await SwaggerParser.dereference(validated_spec);
+  const paths = Object.keys(resolved_spec.paths);
+  const requests = [];
+  paths.forEach(path => {
+    const path_object = resolved_spec.paths[path];
+    const operation_object_keys = Object.keys(path_object);
+    operation_object_keys.forEach(operation_object_key => {
+      const operation_object = path_object[operation_object_key];
+      requests.push(constructRequest(path, operation_object_key, operation_object, generator));
+    });
+  });
+  return { requests, generator };
 }
