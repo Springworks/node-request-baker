@@ -85,6 +85,7 @@ describe('test/construct-requests-test.js', () => {
             method: 'get',
             body: {},
             headers: {},
+            qs: {},
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -105,10 +106,11 @@ describe('test/construct-requests-test.js', () => {
       return constructRequests(api).then(({ requests: actual_requests, generator }) => {
         const expected_requests = [
           {
-            url: `/devices?id=${generator({ type: 'string' })}`,
+            url: '/devices',
             method: 'get',
             body: {},
             headers: {},
+            qs: { id: generator({ type: 'string' }) },
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -133,6 +135,7 @@ describe('test/construct-requests-test.js', () => {
             method: 'get',
             body: {},
             headers: { 'User-Agent': generator({ type: 'string' }) },
+            qs: {},
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -171,6 +174,7 @@ describe('test/construct-requests-test.js', () => {
               sex: generator({ type: 'string', enum: ['female', 'male', 'other'] }),
             },
             headers: {},
+            qs: {},
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -202,7 +206,7 @@ describe('test/construct-requests-test.js', () => {
       return constructRequests(api).then(({ requests: actual_requests, generator }) => {
         const expected_requests = [
           {
-            url: `/users?id=${generator({ type: 'string' })}`,
+            url: '/users',
             method: 'post',
             body: {
               name: generator({ type: 'string' }),
@@ -210,6 +214,7 @@ describe('test/construct-requests-test.js', () => {
               sex: generator({ type: 'string', enum: ['female', 'male', 'other'] }),
             },
             headers: {},
+            qs: { id: generator({ type: 'string' }) } ,
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -235,18 +240,21 @@ describe('test/construct-requests-test.js', () => {
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'get',
             url: '/devices',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'post',
             url: '/devices',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'patch',
             url: '/devices',
           },
@@ -280,36 +288,42 @@ describe('test/construct-requests-test.js', () => {
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'get',
             url: '/devices',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'post',
             url: '/devices',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'patch',
             url: '/devices',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'get',
             url: '/users',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'post',
             url: '/users',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'patch',
             url: '/users',
           },
@@ -352,31 +366,35 @@ describe('test/construct-requests-test.js', () => {
         actual_requests.should.eql([
           {
             body: {},
+            qs: { name: generator({ type: 'string' }) },
             headers: {},
             method: 'get',
-            url: '/users?name=generated_string',
+            url: '/users',
           },
           {
             body: {
               age: 0,
-              name: 'generated_string',
+              name: generator({ type: 'string' }),
               sex: 'female',
             },
             headers: {},
+            qs: {},
             method: 'post',
             url: '/users',
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'get',
-            url: '/devices/generated_string',
+            url: `/devices/${generator({ type: 'string' })}`,
           },
           {
             body: {},
             headers: {},
+            qs: {},
             method: 'delete',
-            url: '/devices/generated_string',
+            url: `/devices/${generator({ type: 'string' })}`,
           },
         ]);
       });
