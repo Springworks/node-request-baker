@@ -1,7 +1,7 @@
 import { constructRequests } from '../src';
 import { ApiBuilder } from '../test-util/api-builder';
 
-describe('test/construct-requests-test.js', () => {
+describe('test/construct-request-test.js', () => {
   let api;
 
   beforeEach(() => {
@@ -214,7 +214,7 @@ describe('test/construct-requests-test.js', () => {
               sex: generator({ type: 'string', enum: ['female', 'male', 'other'] }),
             },
             headers: {},
-            qs: { id: generator({ type: 'string' }) } ,
+            qs: { id: generator({ type: 'string' }) },
           },
         ];
         actual_requests.should.eql(expected_requests);
