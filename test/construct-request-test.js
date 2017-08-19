@@ -1,6 +1,5 @@
 import { constructRequests } from '../src';
 import { ApiBuilder } from '../test-util/api-builder';
-
 describe('test/construct-request-test.js', () => {
   let api;
 
@@ -62,7 +61,7 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should result in no requests', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         actual_requests.length.should.equal(0);
       });
     });
@@ -78,10 +77,10 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct a request object with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         const expected_requests = [
           {
-            url: `/devices/${generator({ type: 'string' })}`,
+            url: `/devices/${getExampleFromType({ type: 'string' })}`,
             method: 'get',
             body: {},
             headers: {},
@@ -103,14 +102,14 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         const expected_requests = [
           {
             url: '/devices',
             method: 'get',
             body: {},
             headers: {},
-            qs: { id: generator({ type: 'string' }) },
+            qs: { id: getExampleFromType({ type: 'string' }) },
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -128,13 +127,13 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         const expected_requests = [
           {
             url: '/devices',
             method: 'get',
             body: {},
-            headers: { 'User-Agent': generator({ type: 'string' }) },
+            headers: { 'User-Agent': getExampleFromType({ type: 'string' }) },
             qs: {},
           },
         ];
@@ -163,15 +162,15 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         const expected_requests = [
           {
             url: '/users',
             method: 'post',
             body: {
-              name: generator({ type: 'string' }),
-              age: generator({ type: 'integer' }),
-              sex: generator({ type: 'string', enum: ['female', 'male', 'other'] }),
+              name: getExampleFromType({ type: 'string' }),
+              age: getExampleFromType({ type: 'integer' }),
+              sex: getExampleFromType({ type: 'string', enum: ['female', 'male', 'other'] }),
             },
             headers: {},
             qs: {},
@@ -203,18 +202,18 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         const expected_requests = [
           {
             url: '/users',
             method: 'post',
             body: {
-              name: generator({ type: 'string' }),
-              age: generator({ type: 'integer' }),
-              sex: generator({ type: 'string', enum: ['female', 'male', 'other'] }),
+              name: getExampleFromType({ type: 'string' }),
+              age: getExampleFromType({ type: 'integer' }),
+              sex: getExampleFromType({ type: 'string', enum: ['female', 'male', 'other'] }),
             },
             headers: {},
-            qs: { id: generator({ type: 'string' }) },
+            qs: { id: getExampleFromType({ type: 'string' }) },
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -235,7 +234,7 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         actual_requests.should.eql([
           {
             body: {},
@@ -283,7 +282,7 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         actual_requests.should.eql([
           {
             body: {},
@@ -362,11 +361,11 @@ describe('test/construct-request-test.js', () => {
     });
 
     it('should construct request objects with the correct values', () => {
-      return constructRequests(api).then(({ requests: actual_requests, generator }) => {
+      return constructRequests(api).then(({ requests: actual_requests, getExampleFromType }) => {
         actual_requests.should.eql([
           {
             body: {},
-            qs: { name: generator({ type: 'string' }) },
+            qs: { name: getExampleFromType({ type: 'string' }) },
             headers: {},
             method: 'get',
             url: '/users',
@@ -374,7 +373,7 @@ describe('test/construct-request-test.js', () => {
           {
             body: {
               age: 0,
-              name: generator({ type: 'string' }),
+              name: getExampleFromType({ type: 'string' }),
               sex: 'female',
             },
             headers: {},
@@ -387,14 +386,14 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             qs: {},
             method: 'get',
-            url: `/devices/${generator({ type: 'string' })}`,
+            url: `/devices/${getExampleFromType({ type: 'string' })}`,
           },
           {
             body: {},
             headers: {},
             qs: {},
             method: 'delete',
-            url: `/devices/${generator({ type: 'string' })}`,
+            url: `/devices/${getExampleFromType({ type: 'string' })}`,
           },
         ]);
       });
