@@ -1,5 +1,5 @@
 {
-  "name": "@springworks/swagger-example-requests",
+  "name": "@springworks/request-bakery",
   "version": "0.0.1",
   "description": "Generates example request parameters from a Swagger specification",
   "files": [
@@ -19,10 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Springworks/m2h-node-swagger-example-requests"
+    "url": "https://github.com/Springworks/node-request-bakery"
   },
-  "bugs": "https://github.com/Springworks/m2h-node-swagger-example-requests/issues",
-  "homepage": "https://github.com/Springworks/m2h-node-swagger-example-requests#readme",
+  "bugs": "https://github.com/Springworks/node-request-bakery/issues",
+  "homepage": "https://github.com/Springworks/node-request-bakery#readme",
   "author": "Springworks",
   "dependencies": {
     "bluebird": "^3.5.0"
