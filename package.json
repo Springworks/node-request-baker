@@ -1,6 +1,6 @@
 {
-  "name": "@springworks/request-bakery",
-  "version": "0.0.0-development",
+  "name": "@springworks/request-baker",
+  "version": "1.0.0",
   "description": "Generates example request parameters from a Swagger specification",
   "files": [
     "build"
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Springworks/node-request-bakery"
+    "url": "https://github.com/Springworks/node-request-baker"
   },
   "bugs": "https://github.com/Springworks/node-request-bakery/issues",
   "homepage": "https://github.com/Springworks/node-request-bakery#readme",

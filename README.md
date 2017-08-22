@@ -1,4 +1,4 @@
-# node-request-bakery
+# node-request-baker
 Bakes tasty example request parameters from a Swagger specification.
 
 ## Usage 
