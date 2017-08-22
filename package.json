@@ -26,7 +26,8 @@
   "author": "Springworks",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "swagger-parser": "^3.4.2"
   },
   "devDependencies": {
     "@springworks/test-harness": "^1.5.6",
@@ -44,7 +45,6 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "swagger-md": "^2.0.1",
-    "swagger-parser": "^3.4.2",
     "swagger-tools": "^0.10.1",
     "semantic-release": "^7.0.2"
   }
