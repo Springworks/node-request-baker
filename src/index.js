@@ -1,4 +1,5 @@
 import SwaggerParser from 'swagger-parser';
+import _ from 'lodash';
 
 const params_map = {
   string: {
@@ -20,57 +21,68 @@ const params_map = {
     float: 0.0,
     double: 0.0,
   },
+  boolean: {
+    default: true,
+  },
 };
 
-function defaultGenerator(path_param) {
-  if (path_param.schema) {
-    return defaultGenerator(path_param.schema);
+function getExampleFromTypeDefault({ type, format, enum: enumeration }) {
+  const _format = format || 'default';
+  if (enumeration) {
+    return enumeration[0];
+  }
+  return params_map[type][_format];
+}
+
+function getExampleFromParamObject(param_obj, getExampleFromType) {
+  if (param_obj.schema) {
+    return getExampleFromParamObject(param_obj.schema, getExampleFromType);
   }
 
-  if (path_param.type === 'array') {
-    return [...defaultGenerator(path_param.items)];
+  if (param_obj.type === 'array') {
+    return [...getExampleFromParamObject(param_obj.items, getExampleFromType)];
   }
 
-  if (path_param.type === 'object') {
-    const prop_keys = Object.keys(path_param.properties);
+  if (param_obj.type === 'object') {
     const object_value = {};
-    prop_keys.forEach(prop_key => {
-      object_value[prop_key] = defaultGenerator(path_param.properties[prop_key]);
+    const filtered_props = _.pickBy(param_obj.properties, p => p.type); //type is not required in JSON schema so skip type-less props
+    _.forOwn(filtered_props, (val, key) => {
+      object_value[key] = getExampleFromParamObject(val, getExampleFromType);
     });
     return object_value;
   }
 
-  if (path_param.enum && path_param.enum.length > 0) {
-    return path_param.enum[0];
+  if (!params_map[param_obj.type]) {
+    throw new Error(`Unsupported type: ${JSON.stringify(param_obj, null, 2)}`);
   }
-  return params_map[path_param.type][path_param.format ? path_param.format : 'default'];
+  return getExampleFromType({ type: param_obj.type, format: param_obj.format, enum: param_obj.enum });
 }
 
-function constructRequest(path, method, operation_object, generate) {
+function constructRequest(path, method, operation_object, getExampleFromType) {
   const path_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'path') : [];
   let new_path = path;
   path_params.forEach(path_param => {
-    new_path = new_path.replace(`{${path_param.name}}`, generate(path_param));
+    new_path = new_path.replace(`{${path_param.name}}`, getExampleFromParamObject(path_param, getExampleFromType));
   });
 
   const query_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'query') : [];
 
   const qs = {};
-  query_params.forEach((query_param, idx) => {
-    qs[query_param.name] = generate(query_param);
+  query_params.forEach(query_param => {
+    qs[query_param.name] = getExampleFromParamObject(query_param, getExampleFromType);
   });
 
   const body_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'body') : [];
 
   let body = {};
   if (body_params.length > 0) {
-    body = generate(body_params[0]);
+    body = getExampleFromParamObject(body_params[0], getExampleFromType);
   }
 
   const headers = {};
   const header_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'header') : [];
   header_params.forEach(header_param => {
-    headers[header_param.name] = generate(header_param);
+    headers[header_param.name] = getExampleFromParamObject(header_param, getExampleFromType);
   });
 
   return {
@@ -82,20 +94,18 @@ function constructRequest(path, method, operation_object, generate) {
   };
 }
 
-export function constructRequests(swagger_spec, generator = defaultGenerator) {
-  return SwaggerParser.validate(swagger_spec)
-      .then(validated_spec => SwaggerParser.dereference(validated_spec))
-      .then(api => {
-        const paths = Object.keys(swagger_spec.paths);
-        const requests = [];
-        paths.forEach(path => {
-          const path_object = swagger_spec.paths[path];
-          const operation_object_keys = Object.keys(path_object);
-          operation_object_keys.forEach(operation_object_key => {
-            const operation_object = path_object[operation_object_key];
-            requests.push(constructRequest(path, operation_object_key, operation_object, generator));
-          });
-        });
-        return { requests, generator };
-      });
+export async function constructRequests(swagger_spec, getExampleFromType = getExampleFromTypeDefault) {
+  const validated_spec = await SwaggerParser.validate(swagger_spec);
+  const resolved_spec = await SwaggerParser.dereference(validated_spec);
+  const paths = Object.keys(resolved_spec.paths);
+  const requests = [];
+  paths.forEach(path => {
+    const path_object = resolved_spec.paths[path];
+    const operation_object_keys = Object.keys(path_object);
+    operation_object_keys.forEach(operation_object_key => {
+      const operation_object = path_object[operation_object_key];
+      requests.push(constructRequest(path, operation_object_key, operation_object, getExampleFromType));
+    });
+  });
+  return { requests, getExampleFromType };
 }

@@ -1,11 +1,24 @@
 {
+  "retainLines": true,
   "presets": [
     [
       "env",
       {
         "targets": {
-          "node": "current"
-        }
+          "node": 4
+        },
+        "exclude": [
+          "transform-regenerator"
+        ]
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "transform-async-to-module-method",
+      {
+        "module": "bluebird",
+        "method": "coroutine"
       }
     ]
   ]
