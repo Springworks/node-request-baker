@@ -6,7 +6,6 @@
     "build"
   ],
   "main": "build/index.js",
-  "private": true,
   "scripts": {
     "test": "NODE_ENV=test istanbul cover _mocha",
     "build": "rm -rf build && babel src --out-dir build --copy-files",
