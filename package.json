@@ -1,6 +1,6 @@
 {
   "name": "@springworks/request-bakery",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Generates example request parameters from a Swagger specification",
   "files": [
     "build"
@@ -15,7 +15,8 @@
     "test-acceptance": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/acceptance/'",
     "test-component": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/component/'",
     "test-unit": "NODE_ENV=test istanbul cover _mocha -- --fgrep '/unit/'",
-    "lint": "eslint --cache ."
+    "lint": "eslint --cache .",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "mocha": "^3.5.0",
     "swagger-md": "^2.0.1",
     "swagger-parser": "^3.4.2",
-    "swagger-tools": "^0.10.1"
+    "swagger-tools": "^0.10.1",
+    "semantic-release": "^7.0.2"
   }
 }
