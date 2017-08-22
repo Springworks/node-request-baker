@@ -36,3 +36,5 @@ coverage
 /config/runtime.json
 .eslintcache
 package-lock.json
+
+.yo-rc.json
