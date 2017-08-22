@@ -1,7 +1,7 @@
-# node-swagger-example-requests
+# node-request-bakery
 Generates example request parameters from a Swagger specification
 
 ## Usage 
 ```javascript
-import constructRequests from '@springworks/swagger-example-requests'
-const requests_examples = constructRequests(swagger_spec);
+import constructRequests from '@springworks/request-bakery'
+const { requests } = constructRequests(swagger_spec);
