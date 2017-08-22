@@ -1,5 +1,5 @@
 # node-request-bakery
-Generates example request parameters from a Swagger specification
+Bakes tasty example request parameters from a Swagger specification.
 
 ## Usage 
 ```javascript
