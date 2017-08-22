@@ -58,7 +58,7 @@ function getExampleFromParamObject(param_obj, getExampleFromType) {
   return getExampleFromType({ type: param_obj.type, format: param_obj.format, enum: param_obj.enum });
 }
 
-function constructRequest(path, method, operation_object, getExampleFromType) {
+function constructRequest(path, method, operation_object, getExampleFromType, base_path) {
   const path_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'path') : [];
   let new_path = path;
   path_params.forEach(path_param => {
@@ -91,6 +91,7 @@ function constructRequest(path, method, operation_object, getExampleFromType) {
     body,
     headers,
     qs,
+    base_path,
   };
 }
 
@@ -98,13 +99,12 @@ export async function constructRequests(swagger_spec, getExampleFromType = getEx
   const validated_spec = await SwaggerParser.validate(swagger_spec);
   const resolved_spec = await SwaggerParser.dereference(validated_spec);
   const paths = Object.keys(resolved_spec.paths);
-  const requests = [];
-  paths.forEach(path => {
+  const requests = _.flatMap(paths, path => {
     const path_object = resolved_spec.paths[path];
     const operation_object_keys = Object.keys(path_object);
-    operation_object_keys.forEach(operation_object_key => {
+    return operation_object_keys.map(operation_object_key => {
       const operation_object = path_object[operation_object_key];
-      requests.push(constructRequest(path, operation_object_key, operation_object, getExampleFromType));
+      return constructRequest(path, operation_object_key, operation_object, getExampleFromType, resolved_spec.basePath);
     });
   });
   return { requests, getExampleFromType };
