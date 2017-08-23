@@ -3,8 +3,8 @@ import _ from 'lodash';
 
 const params_map = {
   string: {
-    default: 'generated_string',
-    password: 'generated_string',
+    default: 'TDbl5kL83bG',
+    password: 'TDbl5kL83bG',
     date: '2017-01-23T00:00:00Z',
     'date-time': '2017-01-23T00:00:00Z',
     byte: 'YSBiYXNlNjQgZW5jb2RlZCBzdHJpbmc=',
