@@ -60,9 +60,9 @@ function getExampleFromParamObject(param_obj, getExampleFromType) {
 
 function constructRequest(path, method, operation_object, getExampleFromType, base_path) {
   const path_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'path') : [];
-  let new_path = path;
+  let final_path = path;
   path_params.forEach(path_param => {
-    new_path = new_path.replace(`{${path_param.name}}`, getExampleFromParamObject(path_param, getExampleFromType));
+    final_path = final_path.replace(`{${path_param.name}}`, getExampleFromParamObject(path_param, getExampleFromType));
   });
 
   const query_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'query') : [];
@@ -86,7 +86,7 @@ function constructRequest(path, method, operation_object, getExampleFromType, ba
   });
 
   return {
-    url: new_path,
+    path: final_path,
     method,
     body,
     headers,
