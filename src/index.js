@@ -58,12 +58,12 @@ function getExampleFromParamObject(param_obj, getExampleFromType) {
   return getExampleFromType({ type: param_obj.type, format: param_obj.format, enum: param_obj.enum });
 }
 
-function constructRequest(unexpanded_path, method, operation_object, getExampleFromType, base_path) {
+function constructRequest(original_path, method, operation_object, getExampleFromType, base_path) {
   const path_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'path') : [];
-  let path = unexpanded_path;
-  path_params.forEach(path_param => {
-    path = path.replace(`{${path_param.name}}`, getExampleFromParamObject(path_param, getExampleFromType));
-  });
+
+  const path = path_params.reduce((accumulated_path, path_param) => {
+    return accumulated_path.replace(`{${path_param.name}}`, getExampleFromParamObject(path_param, getExampleFromType));
+  }, original_path);
 
   const query_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'query') : [];
 
@@ -87,6 +87,7 @@ function constructRequest(unexpanded_path, method, operation_object, getExampleF
 
   return {
     path,
+    original_path,
     method,
     body,
     headers,
