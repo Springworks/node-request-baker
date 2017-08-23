@@ -86,6 +86,7 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             qs: {},
             base_path: '/api',
+            original_path: '/devices/{id}',
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -112,6 +113,7 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             qs: { id: getExampleFromType({ type: 'string' }) },
             base_path: '/api',
+            original_path: '/devices',
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -138,6 +140,7 @@ describe('test/construct-request-test.js', () => {
             headers: { 'User-Agent': getExampleFromType({ type: 'string' }) },
             qs: {},
             base_path: '/api',
+            original_path: '/devices',
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -178,6 +181,7 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             qs: {},
             base_path: '/api',
+            original_path: '/users',
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -219,6 +223,7 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             qs: { id: getExampleFromType({ type: 'string' }) },
             base_path: '/api',
+            original_path: '/users',
           },
         ];
         actual_requests.should.eql(expected_requests);
@@ -248,6 +253,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'get',
             path: '/devices',
+            original_path: '/devices',
           },
           {
             body: {},
@@ -256,6 +262,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'post',
             path: '/devices',
+            original_path: '/devices',
           },
           {
             body: {},
@@ -264,6 +271,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'patch',
             path: '/devices',
+            original_path: '/devices',
           },
         ]);
       });
@@ -299,6 +307,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'get',
             path: '/devices',
+            original_path: '/devices',
           },
           {
             body: {},
@@ -307,6 +316,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'post',
             path: '/devices',
+            original_path: '/devices',
           },
           {
             body: {},
@@ -315,6 +325,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'patch',
             path: '/devices',
+            original_path: '/devices',
           },
           {
             body: {},
@@ -323,6 +334,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'get',
             path: '/users',
+            original_path: '/users',
           },
           {
             body: {},
@@ -331,6 +343,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'post',
             path: '/users',
+            original_path: '/users',
           },
           {
             body: {},
@@ -339,6 +352,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'patch',
             path: '/users',
+            original_path: '/users',
           },
         ]);
       });
@@ -384,6 +398,7 @@ describe('test/construct-request-test.js', () => {
             headers: {},
             method: 'get',
             path: '/users',
+            original_path: '/users',
           },
           {
             body: {
@@ -396,6 +411,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'post',
             path: '/users',
+            original_path: '/users',
           },
           {
             body: {},
@@ -404,6 +420,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'get',
             path: `/devices/${getExampleFromType({ type: 'string' })}`,
+            original_path: '/devices/{id}',
           },
           {
             body: {},
@@ -412,6 +429,7 @@ describe('test/construct-request-test.js', () => {
             base_path: '/api',
             method: 'delete',
             path: `/devices/${getExampleFromType({ type: 'string' })}`,
+            original_path: '/devices/{id}',
           },
         ]);
       });
