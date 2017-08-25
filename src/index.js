@@ -5,6 +5,7 @@ const params_map = {
   string: {
     default: 'TDbl5kL83bG',
     password: 'TDbl5kL83bG',
+    uri: 'https://example.com:9999/foo#bar?q=superman',
     date: '2017-01-23T00:00:00Z',
     'date-time': '2017-01-23T00:00:00Z',
     byte: 'YSBiYXNlNjQgZW5jb2RlZCBzdHJpbmc=',
