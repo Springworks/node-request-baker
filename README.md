@@ -3,8 +3,8 @@ Bakes tasty example request parameters from a Swagger specification.
 
 ## Usage 
 ```javascript
-import constructRequests from '@springworks/request-bakery'
-const { requests } = constructRequests(swagger_spec);
+import { constructRequests } from '@springworks/request-baker'
+const { requests } = await constructRequests(swagger_spec);
 ```
 
 Each `request` has the following structure:
