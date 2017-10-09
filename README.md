@@ -10,7 +10,7 @@ const { requests } = await constructRequests(swagger_spec);
 Each `request` has the following structure:
 ```javascript
 {
-   path,        //the path e.g. /pets
+   path,        //the path e.g. /pets/17
    original_path//the original path e.g. /pets/{id}
    base_path    //base path e.g. /api
    method,      //http method e.g. GET
