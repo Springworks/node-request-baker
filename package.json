@@ -6,6 +6,7 @@
     "build"
   ],
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "test": "NODE_ENV=test istanbul cover _mocha",
     "build": "rm -rf build && babel src --out-dir build --copy-files",
@@ -25,9 +26,11 @@
   "homepage": "https://github.com/Springworks/node-request-bakery#readme",
   "author": "Springworks",
   "dependencies": {
+    "@types/swagger-schema-official": "^2.0.6",
     "bluebird": "^3.5.0",
     "lodash": "^4.17.4",
-    "swagger-parser": "^3.4.2"
+    "swagger-parser": "^3.4.2",
+    "swagger-schema-official": "^2.0.0-bab6bed"
   },
   "devDependencies": {
     "@springworks/test-harness": "^1.5.6",
@@ -44,8 +47,8 @@
     "eslint-plugin-springworks": "^2.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
+    "semantic-release": "^7.0.2",
     "swagger-md": "^2.0.1",
-    "swagger-tools": "^0.10.1",
-    "semantic-release": "^7.0.2"
+    "swagger-tools": "^0.10.1"
   }
 }
