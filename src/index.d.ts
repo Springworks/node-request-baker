@@ -25,4 +25,4 @@ interface RequestsResult {
     getExampleFromType: TypeToExample
 }
 
-declare async function constructRequests(swagger_spec: Spec, getExampleFromType?: TypeToExample): Promise<RequestsResult>;
+declare function constructRequests(swagger_spec: Spec, getExampleFromType?: TypeToExample): Promise<RequestsResult>;
