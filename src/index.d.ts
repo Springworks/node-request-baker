@@ -17,9 +17,12 @@ interface Request {
     qs: object;
     base_path: string;
 }
+
 type TypeToExample = (type: TypeDescription) => number | string | boolean;
 
-declare async function constructRequests(swagger_spec: Spec, getExampleFromType?: TypeToExample) : {
+interface RequestsResult {
     requests: Request[],
     getExampleFromType: TypeToExample
-};
+}
+
+declare async function constructRequests(swagger_spec: Spec, getExampleFromType?: TypeToExample): Promise<RequestsResult>;
