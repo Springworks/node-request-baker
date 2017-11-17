@@ -162,6 +162,7 @@ describe('test/construct-request-test.js', () => {
                 name: { type: 'string' },
                 age: { type: 'integer' },
                 sex: { type: 'string', enum: ['female', 'male', 'other'] },
+                tags: { type: 'array', items: { type: 'string', enum: ['work'] } },
               },
             },
           });
@@ -177,6 +178,7 @@ describe('test/construct-request-test.js', () => {
               name: getExampleFromType({ type: 'string' }),
               age: getExampleFromType({ type: 'integer' }),
               sex: getExampleFromType({ type: 'string', enum: ['female', 'male', 'other'] }),
+              tags: ['work'],
             },
             headers: {},
             qs: {},

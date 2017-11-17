@@ -41,7 +41,7 @@ function getExampleFromParamObject(param_obj, getExampleFromType) {
   }
 
   if (param_obj.type === 'array') {
-    return [...getExampleFromParamObject(param_obj.items, getExampleFromType)];
+    return [getExampleFromParamObject(param_obj.items, getExampleFromType)];
   }
 
   if (param_obj.type === 'object') {
