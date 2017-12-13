@@ -25,6 +25,7 @@
   "bugs": "https://github.com/Springworks/node-request-bakery/issues",
   "homepage": "https://github.com/Springworks/node-request-bakery#readme",
   "author": "Springworks",
+  "license": "MIT",
   "dependencies": {
     "@types/swagger-schema-official": "^2.0.6",
     "bluebird": "^3.5.0",
