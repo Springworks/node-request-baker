@@ -70,7 +70,8 @@ function constructRequest(original_path, method, operation_object, getExampleFro
 
   const qs = {};
   query_params.forEach(query_param => {
-    qs[query_param.name] = getExampleFromParamObject(query_param, getExampleFromType);
+    const query_example = getExampleFromParamObject(query_param, getExampleFromType);
+    qs[query_param.name] = query_param.type === 'array' ? JSON.stringify(query_example) : query_example;
   });
 
   const body_params = operation_object.parameters ? operation_object.parameters.filter(p => p.in === 'body') : [];
